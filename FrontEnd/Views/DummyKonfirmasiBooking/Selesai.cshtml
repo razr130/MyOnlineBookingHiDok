@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+}
+<br />
+<br />
+<br />
+<div class="col-md-12 col-xs-12 col-md-offset-3">
+    <div class="thumbnail clearfix text-center" style="max-width:500px;width:100%">
+        <h2 style="text-align:center"><b>Data Booking</b></h2>
+        <hr />
+        <table style="border:0 solid;float:none;margin:0 auto">
+            <tr style="height:35px">
+                <td align="right" style="font-size:13px"><b>Kode Unik Booking &nbsp;&nbsp;: </b></td>
+                <td align="left" style="font-size:17px">&nbsp;&nbsp;@ViewBag.bookingcoder</td>
+            </tr>
+            <tr style="height:35px">
+                <td align="right" style="font-size:17px"><b>Nama &nbsp;&nbsp;: </b></td>
+                <td align="left" style="font-size:17px">&nbsp;&nbsp;@ViewBag.namapasienr</td>
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr style="height:35px">
+                <td align="right" style="font-size:17px"><b>Tanggal Lahir &nbsp;&nbsp;: </b></td>
+                <td align="left" style="font-size:17px">&nbsp;&nbsp;@ViewBag.tgllahirr</td>
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr style="height:35px">
+                <td align="right" style="font-size:17px"><b>Layanan &nbsp;&nbsp;: </b></td>
+                <td align="left" style="font-size:17px">&nbsp;&nbsp;@ViewBag.namalayananr</td>
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr style="height:35px">
+                <td align="right" style="font-size:17px"><b>Dokter&nbsp;&nbsp; : </b></td>
+                <td align="left" style="font-size:17px">&nbsp;&nbsp;@ViewBag.namadokterr</td>
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            @{DateTime tanggal = @Convert.ToDateTime(@ViewBag.tgljadwalr); }
+            <tr style="height:35px">
+                <td align="right" style="font-size:17px"><b>Tanggal Rawat &nbsp;&nbsp;: </b></td>
+                <td align="left" style="font-size:17px">&nbsp;&nbsp;@tanggal.ToString("dddd", new System.Globalization.CultureInfo("id-ID")) , @tanggal.ToString("dd-MMM-yyyy")</td>
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr>
+                &nbsp;
+            </tr>
+            <tr style="height:35px">
+                <td align="right" style="font-size:17px"><b>Jam Rawat &nbsp;&nbsp;: </b></td>
+                <td align="left" style="font-size:17px">&nbsp;&nbsp;@ViewBag.jamjadwalr</td>
+            </tr>
+
+        </table>
+        <br />
+        <br />
+    </div>
+    
+</div>
+<div class="text-center">
+    <button class="btn btn-ob" onclick="location.href='@Url.Action("Index", "Home")'">Menu Utama</button>
+</div>
+

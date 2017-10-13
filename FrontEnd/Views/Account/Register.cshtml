@@ -1,0 +1,88 @@
+﻿@model FrontEnd.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Daftar";
+}
+<br />  
+<h2 id="thefont" style="color:#222;padding-left:30px;text-align:center">@ViewBag.Title</h2>
+<div class="text-center">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <hr />
+
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="col-md-6 col-xs-12 col-md-customoffset-2" id="tanggaldiv">Nama</label>
+            <div class="col-md-6 col-xs-12">
+                @Html.TextBoxFor(m => m.Nama, new { @class = "form-control", @id = "txtnamapasien" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-6 col-xs-12 col-md-customoffset-2" id="tanggaldiv">Alamat</label>
+            <div class="col-md-6 col-xs-12">
+                @Html.TextBoxFor(m => m.Alamat, new { @class = "form-control", @id = "txtnamapasien" })
+            </div>
+        </div>
+        <label class="col-md-6 col-xs-12 col-md-customoffset-2" id="tanggaldiv" style="margin-right:10px">Tanggal Lahir</label>
+        <div class="col-md-6 col-xs-12" id="datepickerdiv">
+            <div class="form-group" style="width:330px">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' name="TglLahir" class="form-control datepicker txttglpasien" id="datepickerhome" />
+
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker1').datetimepicker({
+                        format: 'DD-MM-YYYY'
+                    });
+                });
+
+
+            </script>
+        </div>
+            <br />
+            <div class="form-group">
+                <label class="col-md-6 col-xs-12 col-md-customoffset-2" id="tanggaldiv">Email</label>
+                <div class="col-md-6 col-xs-12">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "txtnamapasien" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-6 col-xs-12 col-md-customoffset-2" id="tanggaldiv">Password</label>
+                <div class="col-md-6 col-xs-12">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "txtnamapasien" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-6 col-xs-12 col-md-customoffset-2" id="tanggaldiv">Confirm Password</label>
+                <div class="col-md-6 col-xs-12">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @id = "txtnamapasien" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 col-xs-12">
+                    <input type="submit" class="btn btn-default" value="Daftar" />
+                </div>
+            </div>
+    }
+</div>
+
+<script type="text/javascript">
+            $(function () {
+                $('TglLahir').datetimepicker({
+                     format: 'DD-MMMM-YYYY'
+                });
+            });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

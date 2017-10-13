@@ -1,0 +1,174 @@
+﻿@model IEnumerable<FrontEnd.Models.DummyLayananModels>
+
+@{
+    ViewBag.Title = "HiDok";
+
+}
+
+@Html.Hidden("hiddencode","")
+@Html.Hidden("hiddencode2", "")
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div class="lefty">
+    <div class="row" style="text-align:center">
+        <div class="col-md-12 col-md-customoffset-3" style="float: none; margin: 0 auto;display:inline">
+            <h1 id="titlefront"  style="color:#222;display:inline">Hi</h1> &nbsp; <h1 id="titlefront" style="display:inline">Dok</h1>
+        </div>
+
+    </div>
+    <br />
+
+
+
+    <div class="row" style="text-align:center">
+        <div class="big">
+            <table style="float: none; margin: 0 auto;">
+                <tr>
+                    <td style="vertical-align:central"><h3 style="margin-bottom:20px" id="thefont">Layanan</h3></td>
+                    <td style="padding-left:50px">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle btn-layanan" id="btnlayanan" type="button" data-toggle="dropdown" style="width:330px;max-width:100%">
+                                Layanan
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu scrollable-menu" role="menu" id="dropdownhome">
+                                 <li style="background-color:#efefef;text-align:center;font-weight:bold">Layanan Populer</li>
+                               
+                                @foreach (var layanan2 in Model.Select((data, i) => new { i, data }))
+                                {
+                                    if (layanan2.data.IsPopular == true)
+                                    {
+                                        <li id="li @layanan2.i.ToString()" onclick="kliklayanan('@layanan2.data.Kode')" style="text-align:center"><a href="#">@layanan2.data.Nama</a></li>
+
+                                    }
+                                    
+                                }
+                                <li style="background-color:#efefef;text-align:center;font-weight:bold">Semua Layanan</li>
+                                @foreach (var layanan in Model.Select((data, i) => new { i, data }))
+                                {
+                                    <li id="li @layanan.i.ToString()" onclick="kliklayanan('@layanan.data.Kode')" style="text-align:center"><a href="#">@layanan.data.Nama</a></li>
+                                }
+
+
+                            </ul>
+                            <script type="text/javascript">
+                                
+                                function kliklayanan(angka) {
+                                    $(".btn-layanan").text($(this).text());
+                                    $(".btn-layanan").val($(this).text());
+                                    var tes = $(".btn-layanan").text();
+                                    //var x = document.getElementById("li " + angka).value;
+                                    $('#hiddencode').val(angka);
+                                    var x = document.getElementById("hiddencode").value;
+                                    
+                                };
+                            </script>
+                        </div>
+
+                      
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="small">
+            <table align="center" style="float: none; margin: 0 auto;">
+                <tr>
+                    <td style="vertical-align:central"><h3 style="margin-bottom:20px" id="thefont">Layanan</h3></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle btn-layanan" id="btnlayanan" type="button" data-toggle="dropdown" style="width:330px;max-width:100%">
+                                Layanan
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu scrollable-menu" role="menu" id="dropdownhome">
+                               <li style="background-color:#efefef;text-align:center;font-weight:bold">Layanan Populer</li>
+                               
+                                @foreach (var layanan2 in Model.Select((data, i) => new { i, data }))
+                                {
+                                    if (layanan2.data.IsPopular == true)
+                                    {
+                                        <li id="li @layanan2.i.ToString()" onclick="kliklayanan('@layanan2.data.Kode')" style="text-align:center"><a href="#">@layanan2.data.Nama</a></li>
+
+                                    }
+                                    
+                                }
+                                <li style="background-color:#efefef;text-align:center;font-weight:bold">Semua Layanan</li>
+                                @foreach (var layanan in Model.Select((data, i) => new { i, data }))
+                                {
+                                    <li id="li @layanan.i.ToString()" onclick="kliklayanan('@layanan.data.Kode')" style="text-align:center"><a href="#">@layanan.data.Nama</a></li>
+                                }
+
+                            </ul>
+                            <script type="text/javascript">
+                                $(function () {
+
+                                    $(".dropdown-menu").on('click', 'li a', function () {
+                                        $(".btn-layanan").text($(this).text());
+                                        $(".btn-layanan").val($(this).text());
+                                        var tes = $(this).text();
+                                        
+                                    });
+
+                                });
+                            </script>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" style="text-align:center">
+
+        <div class="col-md-6 col-xs-12 col-md-customoffset-2" id="tanggaldiv">
+            <h3 style="margin-bottom:30px" id="thefont">Tanggal</h3>
+        </div>
+        <div class="col-md-6 col-xs-12 upthemargin" id="datepickerdiv">
+            <div class="form-group" style="width:330px">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' name="tanggal" class="form-control datepicker" id="datepickerhome" style="width:300px;max-width:330px" />
+
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format: 'DD-MM-YYYY'
+                });
+            });
+       
+        
+        </script>
+
+
+
+
+    </div>
+    <br />
+    <br />
+    <div class="row" style="text-align:center">
+        <p style="float: none; margin: 0 auto;">
+            <button class="btn btn-default" style="width:300px;background-color:#E67E22;color:#fff" onclick="location.href='@Url.Action("Index", "DummyJadwalDokter")?namalayanan=' + $('#btnlayanan').val() + '&kodelayanan=' + $('#hiddencode').val() + '&tanggal=' + $('#datepickerhome').val()">Tampilkan Jadwal</button>
+            @*<button class="btn btn-default" style="width:300px;background-color:#E67E22;color:#fff" onclick="alert($('#datepickerhome').val())">Tampilkan Jadwal</button>*@
+
+        </p>
+    </div>
+</div>
+
+<head>
+    
+    
+</head>

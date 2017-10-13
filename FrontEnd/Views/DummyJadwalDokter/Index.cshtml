@@ -1,0 +1,231 @@
+﻿@model IEnumerable<FrontEnd.ViewModels.JadwalViewModels>
+
+
+@{
+    ViewBag.Title = "Jadwal Dokter";
+}
+
+<br />
+<h2 style="color:#222;padding-left:8px;text-align:center" id="thefont">List Jadwal</h2>
+
+<hr style="border-color:#e0c4ac" />
+<br />
+@{int max = @Model.Count();
+    var max2 = 0;
+    
+};
+<input style="display:none;" type="text" value="0" class="counter" />
+<div class="row" style="margin:0 auto">
+    @foreach (var jadwal in Model.Select((value, i) => new { i, value }))
+    {
+       
+            <div class="col-md-6 col-xs-12 col-md-customoffset-3">
+                <div class="thumbnail clearfix text-center" style="float:left;max-width:500px;width:100%;display:inline-block;padding:0">
+                    <h2><b>@jadwal.value.NamaDokter</b></h2>
+                    <div>
+                        <img src="~/Content/Image/@jadwal.value.FilePhoto" class="img-thumbnail img-responsive" id="fotodeokterjadwal" style="border-top-left-radius: 4px;border-top-right-radius: 4px; margin-bottom:10px" />
+                    </div>
+                    <div class="caption pull-right" style="padding:0px;padding-bottom:8px">
+                        
+                        <table class="table table-bordered tablesorter">
+                            @foreach (var detail in jadwal.value.Details.Select((data, i) => new { i, data }))
+                            {
+                                max2 += 1;
+                                if (detail.i % 3 == 0)
+                                {
+                                    @:<tr id="normaltr @detail.i.ToString() @jadwal.i.ToString()" style="display:table-row">
+                                    
+                                }
+                               
+                                
+                                if (detail.data.Booked == detail.data.Max)
+                                {
+                                    @:<td align="center" class="jadwal tdjadwalfull" id="td @jadwal.i.ToString()"  onclick="alert('jadwal penuh, silahkan pilih jadwal di jam lain.')">
+                                    
+                                }
+                                
+                                else
+                                {
+                                    @:<td align="center" class="jadwal tdjadwal" id="td @jadwal.i.ToString()" onclick="location.href='@Url.Action("Index", "DummyKonfirmasiBooking")?jam=' + '@detail.data.Jam' + '&tanggal=' + '@detail.data.TglJadwal' + '&namadokter=' + '@jadwal.value.NamaDokter' + '&namalayanan=' + '@jadwal.value.NamaLayanan' + '&kodedokter=' + '@jadwal.value.KodeDokter' + '&kodelayanan=' + '@jadwal.value.KodeLayanan' + '&foto=' + '@jadwal.value.FilePhoto'">
+                                    
+                                }
+                                DateTime tanggal = @Convert.ToDateTime(@detail.data.TglJadwal);
+
+                                        <b style="font-size:18px"> @tanggal.ToString("dddd", new System.Globalization.CultureInfo("id-ID")) </b>
+                                        if (@detail.data.Durasi == 60)
+                                        {
+                                            <br /><br /> @detail.data.Jam
+                                        }
+                                        else
+                                        {
+                                           <br /><br /> @detail.data.Jam
+                                        }
+
+                                    @:</td>
+
+                       if (detail.i % 3 == 2)
+                        {
+
+                        @:</tr>
+                        }                               
+                            }                           
+                        </table>                     
+                          <button style="text-align:center;padding-left:10px;display:none" onclick="tutup('@jadwal.i')" id="prev @jadwal.i.ToString()" class="btn btn-ob">Prev</button>
+                         <button style="text-align:center;padding-right:10px" onclick="buka('@jadwal.i')" id="next @jadwal.i.ToString()" class="btn btn-ob">Next</button>
+                   <br />
+                     </div>
+                </div>
+            </div>
+
+
+    }
+    <script type="text/javascript">
+        var dex = [];
+        var counttd = [];
+        for(var u = 0; u <= @max-1; u++){
+            dex[u] = 0;       
+            
+        }
+        
+        var $counter = $('.counter');
+        var cek = -1;
+        var theindex = 0
+        function buka(angka) {
+            document.getElementById("prev " + angka).style.display = "initial";
+            if(cek != angka){
+                theindex = 0;
+                theindex += 1;
+                cek = angka;
+                $counter.val("0");
+                //alert("value now " + dex[angka] + "cek " + cek);
+                dex[angka] += 6 ;
+                //alert(dex[angka])
+                var i = dex[angka] + 3
+                var u3 = dex[angka] - 3
+                var u6 = dex[angka] - 6
+                var utest = dex[angka] + 6
+                document.getElementById("normaltr " + dex[angka] + " " + angka).style.display = "table-row";
+                var z = document.getElementById("normaltr " + i + " " + angka)
+                if(z != null){
+                    z.style.display = "table-row";
+                }
+                document.getElementById("normaltr " + u3 + " " + angka).style.display = "none";
+                document.getElementById("normaltr " + u6 + " " + angka).style.display = "none";
+                var q = document.getElementById("normaltr " + utest + " " + angka)
+                if(q == null){
+                    document.getElementById("next " + angka).style.display = "none";
+                }
+            }
+            else{
+                theindex += 1;
+                dex[angka] += 6 ;
+                //alert(dex[angka])
+                var i = dex[angka] + 3
+                var u3 = dex[angka] - 3
+                var u6 = dex[angka] - 6
+                var utest = dex[angka] + 6
+                document.getElementById("normaltr " + dex[angka] + " " + angka).style.display = "table-row";
+                var z = document.getElementById("normaltr " + i + " " + angka)
+                if(z != null){
+                    z.style.display = "table-row";
+                }
+                document.getElementById("normaltr " + u3 + " " + angka).style.display = "none";
+                document.getElementById("normaltr " + u6 + " " + angka).style.display = "none";
+                var q = document.getElementById("normaltr " + utest + " " + angka)
+                if(q == null){
+                    document.getElementById("next " + angka).style.display = "none";
+                }
+            }
+
+        }
+
+        function tutup(angka) {
+            
+                   document.getElementById("next " + angka).style.display = "initial";
+                    if(cek != angka){
+                        cek = angka;
+                        //alert("value now " + dex[angka] + "cek " + cek);
+                       dex[angka] -= 6;
+                       //alert(dex[angka])
+                       var i = dex[angka] + 3
+                       var u3 = dex[angka] + 6
+                       var u6 = dex[angka] + 9
+                       var utest = dex[angka] - 6
+                       document.getElementById("normaltr " + dex[angka] + " " + angka).style.display = "table-row";
+                        var z = document.getElementById("normaltr " + i + " " + angka)
+                        if(z != null){
+                            z.style.display = "table-row";
+                        }
+                        var u3s = document.getElementById("normaltr " + u3 + " " + angka)
+                        if(u3s != null){
+                            u3s.style.display = "none";
+                        }
+                       
+                        
+                        var u6s = document.getElementById("normaltr " + u6 + " " + angka)
+                        if(u6s != null){
+                            u6s.style.display = "none";
+                        }
+                        //alert(dex[angka])
+                        var q = document.getElementById("normaltr " + utest + " " + angka)
+                        if(q == null){
+                            document.getElementById("prev " + angka).style.display = "none";
+                        }
+                    }
+                    else{
+                        
+                        document.getElementById("next " + angka).style.display = "initial";
+                        dex[angka] -= 6;
+                        //alert(dex[angka])
+                        var i = dex[angka] + 3
+                        var u3 = dex[angka] + 6
+                        var u6 = dex[angka] + 9
+                        var utest = dex[angka] - 6
+                        document.getElementById("normaltr " + dex[angka] + " " + angka).style.display = "table-row";
+                        var z = document.getElementById("normaltr " + i + " " + angka)
+                        if(z != null){
+                            z.style.display = "table-row";
+                        }
+                       
+                        var u3s = document.getElementById("normaltr " + u3 + " " + angka)
+                        if(u3s != null){
+                            u3s.style.display = "none";
+                        }
+                       
+                        
+                        var u6s = document.getElementById("normaltr " + u6 + " " + angka)
+                        if(u6s != null){
+                            u6s.style.display = "none";
+                        }
+                        //alert(dex[angka])
+                        var q = document.getElementById("normaltr " + utest + " " + angka)
+                        if(q == null){
+                            document.getElementById("prev " + angka).style.display = "none";
+                        }
+                    }
+                   
+                }
+
+
+
+               $(document).ready(function () {
+                   
+                    var texto = "";
+                    for(var i=6; i<=@max2; i++){
+                        for(var u=0; u<= @max; u++){
+                            if(i % 3 == 0){
+                                var x = document.getElementById("normaltr " + i + " " + u);
+                                if (x != null) {
+                                    x.style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                });
+
+
+    </script>
+    </div>
+    <div class="row"></div>
+
+

@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Konfirmasi Jadwal";
+}
+
+
+<br />
+<br />
+<div class="thumbnail" style="padding:20px">
+    <div class="row text-center">
+        <div class="col-md-12 col-xs-12 center-block">
+
+
+            <h5 style="font-weight:bold">Anda akan berobat dengan @ViewBag.namadokter</h5>
+            <h5 style="font-weight:bold">Di layanan/poli @ViewBag.namalayanan</h5>
+            
+        </div>
+        </div>
+    <div class="row text-center">
+        <div class="col-md-6 col-xs-6 center-block" style="text-align:right">
+
+
+            <img src="~/Content/Image/@ViewBag.foto" id="fotodokter" class="img-thumbnail img-responsive" />
+            </div>
+        <div class="col-md-6 col-xs-6 center-block" id="collayananmobile">
+            <img src="~/Content/Image/whale.png" id="fotolayanan" class="img-thumbnail img-responsive" />
+
+        </div>
+    </div>
+    <hr style="border-color:#e67e22;color:#e67e22" />
+    <div class="row text-center">
+        @{DateTime tanggal = @Convert.ToDateTime(@ViewBag.tanggal);
+        }
+        <div class="col-md-6 col-xs-6" id="thedate">
+
+            <div class="responsive-calendar" style="margin: 0 auto">
+                <div class="controls">
+                    <a class="pull-left" data-go="prev"><div class="btn"><i class="icon-chevron-left"></i></div></a>
+                    <h5><span data-head-year></span> <span data-head-month></span></h5>
+                    <a class="pull-right" data-go="next"><div class="btn"><i class="icon-chevron-right"></i></div></a>
+                </div>
+                <div class="day-headers">
+                    <div class="day header">S</div>
+                    <div class="day header">S</div>
+                    <div class="day header">R</div>
+                    <div class="day header">K</div>
+                    <div class="day header">J</div>
+                    <div class="day header">S</div>
+                    <div class="day header">M</div>
+                </div>
+                <div class="days" data-group="days">
+                    <!-- the place where days will be generated -->
+                </div>
+            </div>
+            <script type="text/javascript">
+                var tgl = '@(ViewBag.tanggal)';
+                var tgl2 = tgl.split('-');
+                var day = tgl2[0];
+                var month = tgl2[1];
+                var yearw = tgl2[2];
+                var newdates =  yearw + '-' + month + '-' + day ;
+                var bla = "2017-09-10";
+                var tanggalbaru = { bla : { "badgeClass": "badge-warning" } };
+                var times = yearw + "-" + month;
+                var str = '{"' + bla + '":{"badgeClass": "badge-warning"}}';
+                
+                //alert(newdate)
+                $(document).ready(function () {
+                    
+                    $('.responsive-calendar').responsiveCalendar({
+                        time: "2017-09",
+                        events: JSON.parse(str),
+                        allRows: false
+                    });
+                });
+            </script>
+        </div>
+
+        <div class="demo-container clocks single col-md-6 col-xs-6" id="theclock">
+            <article class="clock simple show" style="">
+                <div class="hours-container">
+                    <div class="hours" id="jam"></div>
+                </div>
+                <div class="minutes-container">
+                    <div class="minutes" id="menit"></div>
+                </div>
+
+            </article>
+            <script type="text/javascript">
+
+
+                $(window).on("load", function () {
+                    var date = new Date;
+                    var jam = '@(ViewBag.jam)';
+
+                    var jam2 = jam.split(':');
+                    var hours = jam2[0] * 1
+                    var minutes = 0;
+                    document.getElementById("jam").style.webkitTransform = "rotateZ(" + (hours * 30).toString() + "deg)";
+                    document.getElementById("menit").style.webkitTransform = "rotateZ(" + (minutes * 6).toString() + "deg)";
+
+                });
+
+            </script>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div class="row" style="text-align:center">
+    <button class="btn btn-ob" style="width:150px" onclick="location.href='@Url.Action("CreateBooking", "DummyKonfirmasiBooking")?jam=@ViewBag.jam&tanggal=@ViewBag.tanggal&namadokter=@ViewBag.namadokter&kodedokter=@ViewBag.kodedokter&kodelayanan=@ViewBag.kodelayanan&namalayanan=@ViewBag.namalayanan'">YA</button>
+    <button class="btn btn-default" style="width:150px" onclick="location.href='javascript:history.go(-1)'">TIDAK</button>
+</div>

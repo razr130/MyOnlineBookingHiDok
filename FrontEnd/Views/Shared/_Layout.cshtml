@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/scripts/moment.min.js"></script>
+    <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/scripts/bootstrap-datetimepicker.js"></script>
+    
+    @*<script src="/scripts/jquery.js" type="text/javascript"></script>*@
+    <script src="/scripts/responsive-calendar.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/scripts/jquery.calendario.js"></script>
+    <script type="text/javascript" src="/scripts/data.js"></script>
+    <script src="/scripts/modernizr.custom.63321.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/calendar.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/custom_2.css" />
+    
+    <link href="/Content/responsive-calendar.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                var scroll = $(window).scrollTop();
+                if (scroll > 3) {
+                    $(".navbar-inverse").css("border-color", "rgba(230,126,34,1)");
+                    
+                }
+
+                else {
+                    $(".navbar-inverse").css("border-color", "rgba(255,255,255,1)");
+                    
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="padding-top:20px;padding-bottom:10px">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Hi", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @id = "titlenav1", @style = "padding-right:1px;" })
+                @Html.ActionLink("Dok", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @id = "titlenav2" })
+            </div>
+            <div class="navbar-collapse collapse">
+                
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <br />
+        <br />
+
+        <hr style="color:#E67E22;"  />
+        <footer style="float: none; margin: 0 auto; text-align:center">
+            <p>&copy; @DateTime.Now.Year - My Online Booking</p>
+            <p>Book your doctor</p>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+    @RenderSection("MyScripts", required: false)
+</body>
+
+</html>
+<link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
